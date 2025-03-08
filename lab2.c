@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// stores part info
+// stores part info and defines "part" type that holds details of a given part
 typedef struct {
     int part_number;
     char part_name[50];
@@ -10,10 +10,11 @@ typedef struct {
     float part_cost;
 } Part;
 
+// pointer and counter for parts
 Part *database = NULL;
 int num_records = 0;
 
-// Function to add a new part
+// function to add a new part by allocating new memory space
 void add_record() {
     Part *new_db = malloc((num_records + 1) * sizeof(Part));
     if (new_db == NULL) {
@@ -21,10 +22,12 @@ void add_record() {
         return;
     }
     
+    // copies existing records to new memory
     for (int i = 0; i < num_records; i++) {
         new_db[i] = database[i];
     }
     
+    // new part details inputed from user
     printf("part number: ");
     scanf("%d", &new_db[num_records].part_number);
     printf("part name: ");
@@ -36,42 +39,47 @@ void add_record() {
     printf("part cost: ");
     scanf("%f", &new_db[num_records].part_cost);
     
+    // updates pointer and frees old memory
     free(database);
     database = new_db;
     num_records++;
     printf("part has been added.\n");
 }
 
-// Function to delete the last added part
+// function to delete the last added part
 void delete_record() {
     if (num_records == 0) {
         printf("no parts to delete.\n");
         return;
     }
     
+    // allocates new memory 
     Part *new_db = malloc((num_records - 1) * sizeof(Part));
     if (new_db == NULL && num_records > 1) {
         printf("memory allocation failed.\n");
         return;
     }
     
+    // copies all records besides the last into new memory
     for (int i = 0; i < num_records - 1; i++) {
         new_db[i] = database[i];
     }
     
+    // updates pointer and frees old memory
     free(database);
     database = new_db;
     num_records--;
     printf("last part removed.\n");
 }
 
-// Function to print all parts
+// function to print all parts
 void print_records() {
     if (num_records == 0) {
         printf("no parts available.\n");
         return;
     }
     
+    // loops through the records and prints them
     for (int i = 0; i < num_records; i++) {
         printf("part %d:\n", i + 1);
         printf("number: %d\n", database[i].part_number);
@@ -82,16 +90,17 @@ void print_records() {
     }
 }
 
-// Function to show record count
+// function to show record count
 void print_num_records() {
     printf("total parts: %d\n", num_records);
 }
 
-// Function to show memory size used
+// function to show memory used by database
 void print_database_size() {
     printf("memory used: %lu bytes\n", num_records * sizeof(Part));
 }
 
+// menu options
 int main() {
     int choice;
     do {
@@ -105,6 +114,7 @@ int main() {
         printf("Choice: ");
         scanf("%d", &choice);
 
+        // actions to be performed based off user input
         switch (choice) {
             case 1: print_records(); break;
             case 2: print_num_records(); break;
@@ -116,6 +126,7 @@ int main() {
         }
     } while (choice != 6);
     
+    // frees allocated memory before program exit
     free(database);
     return 0;
 }
