@@ -24,8 +24,6 @@ This project is a simple C program that demonstrates dynamic memory allocation f
   6. Exit the program  
 - Uses manual memory management without arrays or linked lists  
 
-## Compilation and Execution  
-To compile and run the program, use the following commands:  
 
 ## Clone & Run the Repository  
 To clone the repository, use the following command:  
