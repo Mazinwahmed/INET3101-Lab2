@@ -25,11 +25,9 @@ This project is a simple C program that demonstrates dynamic memory allocation f
 - Uses manual memory management without arrays or linked lists  
 
 
-## Clone & Run the Repository  
-To clone the repository, use the following command:  
+## Compilation and Execution  
+To compile and run the program, use the following commands:  
 
 ```sh
-git clone https://github.com/axbjos/inet3101-dynamic-memory.git
-
-gcc lab2.c -o lab2
+gcc -o lab2 lab2.c
 ./lab2
